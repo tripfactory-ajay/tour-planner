@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ORN · UK Tours 2026–27 Departure Schedule</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --orn-blue: #1B6FD8;
+  --orn-green: #3AB54A;
+  --orn-yellow: #F5C400;
+  --orn-orange: #F47920;
+  --orn-red: #E8342A;
+  --in-color: #D97706;
+  --in-bg: #FEF3C7;
+  --in-border: #F59E0B;
+  --glo-color: #1B6FD8;
+  --glo-bg: #EFF6FF;
+  --glo-border: #93C5FD;
+  --ink: #1a1a1a;
+  --muted: #6B7280;
+  --border: #E5E7EB;
+  --surface: #FAFAF8;
+  --white: #ffffff;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: #F5F4F0;
+  color: var(--ink);
+  min-height: 100vh;
+}
+
+.page-wrap {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 40px 24px 80px;
+}
+
+/* ─── HEADER ─── */
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 40px;
+  gap: 24px;
+}
+.header-left {}
+.orn-bar {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+.orn-bar span {
+  display: inline-block;
+  width: 5px;
+  border-radius: 3px;
+}
+.header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.15;
+}
+.header h1 em {
+  font-style: normal;
+  color: var(--orn-blue);
+}
+.header-sub {
+  font-size: 14px;
+  color: var(--muted);
+  margin-top: 6px;
+  font-weight: 400;
+}
+.header-badges {
+  display: flex;
+  gap: 10px;
+  flex-shrink: 0;
+  align-items: center;
+  margin-top: 4px;
+}
+.prog-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.prog-badge.in { background: var(--in-bg); color: var(--in-color); border: 1px solid var(--in-border); }
+.prog-badge.glo { background: var(--glo-bg); color: var(--glo-color); border: 1px solid var(--glo-border); }
+.prog-badge .dot { width: 8px; height: 8px; border-radius: 50%; }
+.prog-badge.in .dot { background: var(--in-color); }
+.prog-badge.glo .dot { background: var(--glo-color); }
+
+/* ─── LEGEND / KEY ─── */
+.legend {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 18px 24px;
+  margin-bottom: 28px;
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  flex-wrap: wrap;
+}
+.legend-title {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  flex-shrink: 0;
+}
+.legend-items {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+  color: #374151;
+  font-weight: 500;
+}
+.legend-swatch {
+  width: 28px;
+  height: 20px;
+  border-radius: 5px;
+  border: 1px solid rgba(0,0,0,0.08);
+  flex-shrink: 0;
+}
+.legend-swatch.in { background: var(--in-bg); border-color: var(--in-border); }
+.legend-swatch.glo { background: var(--glo-bg); border-color: var(--glo-border); }
+.legend-swatch.empty { background: #fff; border: 1.5px dashed #D1D5DB; }
+.legend-swatch.tbc { background: #F3F4F6; border-color: #D1D5DB; }
+
+/* ─── INSTRUCTION ─── */
+.instruction {
+  background: linear-gradient(135deg, #EFF6FF 0%, #EEF2FF 100%);
+  border: 1px solid #C7D2FE;
+  border-radius: 12px;
+  padding: 14px 20px;
+  margin-bottom: 28px;
+  font-size: 13px;
+  color: #3730A3;
+  font-weight: 500;
+}
+.instruction strong { font-weight: 600; }
+
+/* ─── TOUR INDEX ─── */
+.section-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 12px;
+}
+
+.tours-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  margin-bottom: 36px;
+}
+.tours-col {}
+.tours-col-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid;
+}
+.tours-col-header.in { color: var(--in-color); border-color: var(--in-border); }
+.tours-col-header.glo { color: var(--glo-color); border-color: var(--glo-border); }
+
+.tour-chip-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.tour-chip {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 500;
+  border: 1px solid;
+}
+.tour-chip.in { background: var(--in-bg); border-color: var(--in-border); color: #92400E; }
+.tour-chip.glo { background: var(--glo-bg); border-color: var(--glo-border); color: #1E40AF; }
+.tour-chip .num {
+  font-family: 'Playfair Display', serif;
+  font-size: 13px;
+  font-weight: 700;
+  flex-shrink: 0;
+  width: 20px;
+}
+.tour-chip .name { flex: 1; }
+.tour-chip .days {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 7px;
+  border-radius: 20px;
+  flex-shrink: 0;
+}
+.tour-chip.in .days { background: rgba(217,119,6,0.12); color: var(--in-color); }
+.tour-chip.glo .days { background: rgba(27,111,216,0.12); color: var(--glo-color); }
+
+/* ─── MAIN GRID ─── */
+.grid-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+
+.grid-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+
+/* Column header row */
+.grid-table thead tr th {
+  background: var(--ink);
+  color: rgba(255,255,255,0.9);
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  padding: 12px 10px;
+  text-align: left;
+  white-space: nowrap;
+  border-right: 1px solid rgba(255,255,255,0.08);
+}
+.grid-table thead tr th:first-child {
+  padding-left: 16px;
+  min-width: 180px;
+  width: 180px;
+}
+.grid-table thead tr th.month-head {
+  text-align: center;
+  min-width: 90px;
+  width: 90px;
+}
+.grid-table thead tr th:last-child { border-right: none; }
+
+/* Programme section header rows */
+.section-row td {
+  padding: 9px 16px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-bottom: 1px solid var(--border);
+}
+.section-row.in td { background: var(--in-bg); color: var(--in-color); border-top: 2px solid var(--in-border); }
+.section-row.glo td { background: var(--glo-bg); color: var(--glo-color); border-top: 2px solid var(--glo-border); }
+
+/* Tour rows */
+.grid-table tbody tr.tour-row {
+  border-bottom: 1px solid var(--border);
+  transition: background 0.15s;
+}
+.grid-table tbody tr.tour-row:hover { background: #FAFAF8; }
+.grid-table tbody tr.tour-row:last-child { border-bottom: none; }
+
+.tour-name-cell {
+  padding: 10px 10px 10px 16px;
+  border-right: 1px solid var(--border);
+  vertical-align: middle;
+}
+.tour-name-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.tour-num {
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--muted);
+}
+.tour-name-text {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.3;
+}
+.tour-days-tag {
+  display: inline-block;
+  font-size: 9px;
+  font-weight: 600;
+  padding: 1px 6px;
+  border-radius: 10px;
+  margin-top: 2px;
+}
+.in-tag { background: rgba(217,119,6,0.1); color: var(--in-color); }
+.glo-tag { background: rgba(27,111,216,0.1); color: var(--glo-color); }
+
+/* Date input cells */
+.date-cell {
+  padding: 6px 8px;
+  text-align: center;
+  border-right: 1px solid var(--border);
+  vertical-align: middle;
+  min-width: 90px;
+}
+.date-cell:last-child { border-right: none; }
+
+/* The actual input */
+.date-input-wrap {
+  position: relative;
+}
+.date-input {
+  width: 100%;
+  border: 1.5px solid #E5E7EB;
+  border-radius: 7px;
+  padding: 5px 7px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--ink);
+  background: #FAFAF8;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.15s;
+  outline: none;
+}
+.date-input:focus {
+  border-color: var(--orn-blue);
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(27,111,216,0.1);
+}
+.date-input.filled-in {
+  background: var(--in-bg);
+  border-color: var(--in-border);
+  color: var(--in-color);
+  font-weight: 600;
+}
+.date-input.filled-glo {
+  background: var(--glo-bg);
+  border-color: var(--glo-border);
+  color: var(--glo-color);
+  font-weight: 600;
+}
+.date-input::placeholder {
+  color: #D1D5DB;
+  font-size: 10px;
+}
+/* N/A cells */
+.na-cell {
+  background: #F9FAFB;
+  color: #D1D5DB;
+  font-size: 10px;
+  text-align: center;
+  padding: 6px;
+  border-right: 1px solid var(--border);
+  vertical-align: middle;
+}
+.na-cell:last-child { border-right: none; }
+
+/* ─── NOTES ROW ─── */
+.notes-row td {
+  padding: 0;
+  border-bottom: 1px solid var(--border);
+}
+.notes-input {
+  width: 100%;
+  border: none;
+  background: #F9FAFB;
+  padding: 6px 10px 6px 16px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  color: #6B7280;
+  outline: none;
+  resize: none;
+  height: 30px;
+}
+.notes-input::placeholder { color: #D1D5DB; }
+.notes-input:focus { background: #fffdf5; color: var(--ink); }
+
+/* ─── FOOTER / ACTIONS ─── */
+.grid-footer {
+  padding: 16px 20px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: #FAFAF8;
+}
+.footer-note {
+  font-size: 12px;
+  color: var(--muted);
+}
+.footer-actions {
+  display: flex;
+  gap: 8px;
+}
+.btn {
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: all 0.15s;
+}
+.btn-primary {
+  background: var(--orn-blue);
+  color: #fff;
+}
+.btn-primary:hover { background: #1558B0; }
+.btn-secondary {
+  background: #fff;
+  color: var(--ink);
+  border: 1px solid var(--border);
+}
+.btn-secondary:hover { background: #F3F4F6; }
+.btn-danger {
+  background: #fff;
+  color: var(--orn-red);
+  border: 1px solid #FECACA;
+}
+.btn-danger:hover { background: #FEF2F2; }
+
+/* ─── PRINT ─── */
+@media print {
+  body { background: #fff; }
+  .page-wrap { padding: 20px; }
+  .grid-footer .footer-actions { display: none; }
+  .date-input { background: var(--in-bg) !important; }
+  .instruction { display: none; }
+}
+
+/* ─── SUMMARY PANEL ─── */
+.summary-panel {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 20px 24px;
+  margin-top: 24px;
+}
+.summary-panel h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 16px;
+  margin-bottom: 12px;
+  color: var(--ink);
+}
+#summary-output {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.7;
+  white-space: pre-wrap;
+}
+
+/* stripe */
+.top-stripe {
+  height: 4px;
+  background: linear-gradient(90deg, #1B6FD8 0%, #3AB54A 25%, #F5C400 50%, #F47920 75%, #E8342A 100%);
+  border-radius: 16px 16px 0 0;
+}
+</style>
+</head>
+<body>
+
+<div class="page-wrap">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-left">
+      <div class="orn-bar">
+        <span style="height:18px;background:#1B6FD8"></span>
+        <span style="height:24px;background:#3AB54A"></span>
+        <span style="height:30px;background:#F5C400"></span>
+        <span style="height:24px;background:#F47920"></span>
+        <span style="height:18px;background:#E8342A"></span>
+      </div>
+      <h1>UK Tours 2026–27<br><em>Departure Date Planner</em></h1>
+      <div class="header-sub">ORN Group · TripFactory · One tour per month · Alternating IN ↔ GLO programmes</div>
+    </div>
+    <div style="text-align:right">
+      <div class="header-badges">
+        <div class="prog-badge in"><div class="dot"></div>Indian Market (IN) · 6 tours</div>
+        <div class="prog-badge glo"><div class="dot"></div>Global (GLO) · 7 tours</div>
+      </div>
+      <div style="font-size:11px;color:var(--muted);margin-top:8px;text-align:right">
+        16-seater coaches · Max 16 pax (IN) · 12 seats sold (GLO)
+      </div>
+    </div>
+  </div>
+
+  <!-- LEGEND -->
+  <div class="legend">
+    <div class="legend-title">Key</div>
+    <div class="legend-items">
+      <div class="legend-item"><div class="legend-swatch in"></div>Indian Market (IN) departure</div>
+      <div class="legend-item"><div class="legend-swatch glo"></div>Global (GLO) departure</div>
+      <div class="legend-item"><div class="legend-swatch empty"></div>No departure that month</div>
+      <div class="legend-item"><div class="legend-swatch tbc"></div>N/A — tour doesn't use this month</div>
+      <div class="legend-item" style="font-size:12px;color:var(--muted)">📋 Click any date cell to enter departure date · Tab to move between cells</div>
+    </div>
+  </div>
+
+  <!-- INSTRUCTION -->
+  <div class="instruction">
+    <strong>Instructions for the team:</strong> Enter the departure date for each tour in the relevant month column. One tour departs per month, alternating between Indian Market (IN) and Global (GLO). Dates should be the first day of travel. Leave blank if that tour does not run in a particular month. Use format: <strong>DD Mon</strong> (e.g. <em>15 May</em>).
+  </div>
+
+  <!-- TOUR INDEX -->
+  <div class="section-label">Tour Reference Index</div>
+  <div class="tours-grid">
+    <div class="tours-col">
+      <div class="tours-col-header in">🇮🇳 Indian Market Programme (IN)</div>
+      <div class="tour-chip-list">
+        <div class="tour-chip in"><span class="num">IN1</span><span class="name">Grand British Isles</span><span class="days">16 days</span></div>
+        <div class="tour-chip in"><span class="num">IN2</span><span class="name">London Paris Castles</span><span class="days">7 days</span></div>
+        <div class="tour-chip in"><span class="num">IN3</span><span class="name">Lake District &amp; Yorkshire</span><span class="days">7 days</span></div>
+        <div class="tour-chip in"><span class="num">IN4</span><span class="name">Ultimate UK Heritage</span><span class="days">10 days</span></div>
+        <div class="tour-chip in"><span class="num">IN5</span><span class="name">UK Family Adventure</span><span class="days">12 days</span></div>
+        <div class="tour-chip in"><span class="num">IN6</span><span class="name">Towers &amp; Temples</span><span class="days">8 days</span></div>
+        <div class="tour-chip in"><span class="num">IN7</span><span class="name">Bollywood UK</span><span class="days">9 days</span></div>
+      </div>
+    </div>
+    <div class="tours-col">
+      <div class="tours-col-header glo">🌍 Global Programme (GLO)</div>
+      <div class="tour-chip-list">
+        <div class="tour-chip glo"><span class="num">G1</span><span class="name">Grand British Isles Explorer</span><span class="days">16 days</span></div>
+        <div class="tour-chip glo"><span class="num">G2</span><span class="name">London, Paris &amp; English Castles</span><span class="days">7 days</span></div>
+        <div class="tour-chip glo"><span class="num">G3</span><span class="name">Lake District &amp; Yorkshire Dales</span><span class="days">6 days</span></div>
+        <div class="tour-chip glo"><span class="num">G4</span><span class="name">Ultimate UK Heritage &amp; Castles</span><span class="days">10 days</span></div>
+        <div class="tour-chip glo"><span class="num">G5</span><span class="name">UK Family Adventure</span><span class="days">12 days</span></div>
+        <div class="tour-chip glo"><span class="num">G6</span><span class="name">Castles &amp; Glens</span><span class="days">12 days</span></div>
+        <div class="tour-chip glo"><span class="num">G7</span><span class="name">British Film &amp; Entertainment</span><span class="days">9 days</span></div>
+        <div class="tour-chip glo"><span class="num">G8</span><span class="name">Scotch Whisky Trail</span><span class="days">8 days</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN GRID -->
+  <div class="section-label">Departure Date Grid — Enter dates below</div>
+  <div class="grid-card">
+    <div class="top-stripe"></div>
+    <table class="grid-table">
+      <thead>
+        <tr>
+          <th>Tour</th>
+          <th class="month-head">May '26</th>
+          <th class="month-head">Jun '26</th>
+          <th class="month-head">Jul '26</th>
+          <th class="month-head">Aug '26</th>
+          <th class="month-head">Sep '26</th>
+          <th class="month-head">Oct '26</th>
+          <th class="month-head">Nov '26</th>
+          <th class="month-head">Dec '26</th>
+          <th class="month-head">Jan '27</th>
+          <th class="month-head">Feb '27</th>
+          <th class="month-head">Mar '27</th>
+          <th class="month-head">Apr '27</th>
+          <th class="month-head">May '27</th>
+        </tr>
+      </thead>
+      <tbody id="grid-body">
+        <!-- Injected by JS -->
+      </tbody>
+    </table>
+    <div class="grid-footer">
+      <div class="footer-note">💾 Dates are saved automatically in your browser · Last saved: <span id="last-saved">Never</span></div>
+      <div class="footer-actions">
+        <button class="btn btn-secondary" onclick="generateSummary()">📋 Generate Summary</button>
+        <button class="btn btn-secondary" onclick="window.print()">🖨 Print / PDF</button>
+        <button class="btn btn-danger" onclick="clearAll()">Clear All</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUMMARY PANEL -->
+  <div class="summary-panel" id="summary-panel" style="display:none">
+    <h3>📋 Departure Schedule Summary</h3>
+    <pre id="summary-output"></pre>
+  </div>
+
+</div>
+
+<script>
+const MONTHS = ['May \'26','Jun \'26','Jul \'26','Aug \'26','Sep \'26','Oct \'26','Nov \'26','Dec \'26','Jan \'27','Feb \'27','Mar \'27','Apr \'27','May \'27'];
+const MONTH_KEYS = ['may26','jun26','jul26','aug26','sep26','oct26','nov26','dec26','jan27','feb27','mar27','apr27','may27'];
+
+// Tour data — type 'in' or 'glo', name, duration, code
+// na_months: array of month indexes (0-based) where this tour simply doesn't run
+const IN_TOURS = [
+  { code:'IN1', name:'Grand British Isles', days:'16 days', type:'in' },
+  { code:'IN2', name:'London Paris Castles', days:'7 days', type:'in' },
+  { code:'IN3', name:'Lake District & Yorkshire', days:'7 days', type:'in' },
+  { code:'IN4', name:'Ultimate UK Heritage', days:'10 days', type:'in' },
+  { code:'IN5', name:'UK Family Adventure', days:'12 days', type:'in' },
+  { code:'IN6', name:'Towers & Temples', days:'8 days', type:'in' },
+  { code:'IN7', name:'Bollywood UK', days:'9 days', type:'in' },
+];
+const GLO_TOURS = [
+  { code:'G1', name:'Grand British Isles Explorer', days:'16 days', type:'glo' },
+  { code:'G2', name:'London, Paris & Castles', days:'7 days', type:'glo' },
+  { code:'G3', name:'Lake District & Yorkshire', days:'6 days', type:'glo' },
+  { code:'G4', name:'Ultimate UK Heritage', days:'10 days', type:'glo' },
+  { code:'G5', name:'UK Family Adventure', days:'12 days', type:'glo' },
+  { code:'G6', name:'Castles & Glens', days:'12 days', type:'glo' },
+  { code:'G7', name:'Film & Entertainment', days:'9 days', type:'glo' },
+  { code:'G8', name:'Scotch Whisky Trail', days:'8 days', type:'glo' },
+];
+
+function makeKey(code, monthKey) { return `dep_${code}_${monthKey}`; }
+function loadVal(code, monthKey) { return localStorage.getItem(makeKey(code, monthKey)) || ''; }
+function saveVal(code, monthKey, val) {
+  localStorage.setItem(makeKey(code, monthKey), val);
+  document.getElementById('last-saved').textContent = new Date().toLocaleTimeString();
+}
+
+function buildRow(tour) {
+  const tr = document.createElement('tr');
+  tr.className = 'tour-row';
+  tr.dataset.code = tour.code;
+
+  // Name cell
+  const nameTd = document.createElement('td');
+  nameTd.className = 'tour-name-cell';
+  nameTd.innerHTML = `<div class="tour-name-inner">
+    <span class="tour-num">${tour.code}</span>
+    <span class="tour-name-text">${tour.name}</span>
+    <span class="tour-days-tag ${tour.type}-tag">${tour.days}</span>
+  </div>`;
+  tr.appendChild(nameTd);
+
+  MONTH_KEYS.forEach((mk, i) => {
+    const td = document.createElement('td');
+    td.className = 'date-cell';
+    const val = loadVal(tour.code, mk);
+    const inp = document.createElement('input');
+    inp.type = 'text';
+    inp.className = 'date-input' + (val ? ` filled-${tour.type}` : '');
+    inp.placeholder = 'DD Mon';
+    inp.value = val;
+    inp.dataset.code = tour.code;
+    inp.dataset.month = mk;
+    inp.dataset.type = tour.type;
+    inp.addEventListener('input', function() {
+      saveVal(this.dataset.code, this.dataset.month, this.value);
+      this.classList.toggle(`filled-${this.dataset.type}`, this.value.length > 0);
+    });
+    td.appendChild(inp);
+    tr.appendChild(td);
+  });
+
+  return tr;
+}
+
+function buildSectionRow(label, type) {
+  const tr = document.createElement('tr');
+  tr.className = `section-row ${type}`;
+  const td = document.createElement('td');
+  td.colSpan = 14;
+  td.textContent = label;
+  tr.appendChild(td);
+  return tr;
+}
+
+function buildGrid() {
+  const tbody = document.getElementById('grid-body');
+  tbody.innerHTML = '';
+
+  // IN section
+  tbody.appendChild(buildSectionRow('🇮🇳  Indian Market Programme (IN) — Vegetarian · Jain options · Full board available', 'in'));
+  IN_TOURS.forEach(t => tbody.appendChild(buildRow(t)));
+
+  // GLO section
+  tbody.appendChild(buildSectionRow('🌍  Global Programme (GLO) — International cuisine · All dietary requirements · Castle stays', 'glo'));
+  GLO_TOURS.forEach(t => tbody.appendChild(buildRow(t)));
+}
+
+function clearAll() {
+  if (!confirm('Clear all entered dates? This cannot be undone.')) return;
+  [...document.querySelectorAll('.date-input')].forEach(inp => {
+    inp.value = '';
+    inp.classList.remove('filled-in','filled-glo');
+    localStorage.removeItem(makeKey(inp.dataset.code, inp.dataset.month));
+  });
+  document.getElementById('summary-panel').style.display = 'none';
+}
+
+function generateSummary() {
+  const lines = [];
+  lines.push('ORN · TripFactory — UK Tours 2026–27 Departure Schedule');
+  lines.push('Generated: ' + new Date().toLocaleDateString('en-GB', {day:'numeric',month:'long',year:'numeric'}));
+  lines.push('');
+  lines.push('INDIAN MARKET PROGRAMME (IN)');
+  lines.push('─'.repeat(60));
+  IN_TOURS.forEach(t => {
+    const entries = MONTH_KEYS.map((mk, i) => {
+      const val = loadVal(t.code, mk);
+      return val ? `${MONTHS[i]}: ${val}` : null;
+    }).filter(Boolean);
+    if (entries.length) {
+      lines.push(`${t.code}  ${t.name} (${t.days})`);
+      entries.forEach(e => lines.push(`       ${e}`));
+    }
+  });
+  lines.push('');
+  lines.push('GLOBAL PROGRAMME (GLO)');
+  lines.push('─'.repeat(60));
+  GLO_TOURS.forEach(t => {
+    const entries = MONTH_KEYS.map((mk, i) => {
+      const val = loadVal(t.code, mk);
+      return val ? `${MONTHS[i]}: ${val}` : null;
+    }).filter(Boolean);
+    if (entries.length) {
+      lines.push(`${t.code}  ${t.name} (${t.days})`);
+      entries.forEach(e => lines.push(`       ${e}`));
+    }
+  });
+  const panel = document.getElementById('summary-panel');
+  document.getElementById('summary-output').textContent = lines.join('\n');
+  panel.style.display = 'block';
+  panel.scrollIntoView({ behavior: 'smooth' });
+}
+
+// Build on load
+buildGrid();
+</script>
+</body>
+</html>
